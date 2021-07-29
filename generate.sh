@@ -1,10 +1,22 @@
 #!/bin/bash
 
-set -x -euo pipefail
+set -eo pipefail
 
 if [ "x$1" = "x" ]
 then
   echo "Please read this script before executing it"
+  exit 1
+fi
+
+if [ "x$VERSION" = "x" ]
+then
+  echo "Please supply a version in VERSION= in plain semver format (e.g., 1.2.3)"
+  exit 1
+fi
+
+if [ "x$DESCRIPTION" = "x" ]
+then
+  echo "Please supply a package description in DESCRIPTION="
   exit 1
 fi
 
@@ -22,4 +34,6 @@ docker run --rm -u $(id -u):$(id -g) -v ${PWD}/${PREFIX}:/swagger openapitools/o
   -g rust \
   -o /swagger
 
-grep -v default-features ${PREFIX}/Cargo.toml > tmp && mv tmp ${PREFIX}/Cargo.toml
+sed -e "s/@@PACKAGE@@/${PREFIX}/g" Cargo.toml.template | \
+  sed -e "s/@@VERSION@@/${VERSION}/g" | \
+  sed -e "s/@@DESCRIPTION@@/${DESCRIPTION}/g" > ${PREFIX}/Cargo.toml

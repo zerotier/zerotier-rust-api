@@ -1,9 +1,7 @@
-generate: central service
-
 central:
-	bash generate.sh central zerotier-central-api
+	@DESCRIPTION="OpenAPI bindings to the ZeroTier Central (https:\/\/my.zerotier.com) service" bash generate.sh central zerotier-central-api
 
 service:
-	bash generate.sh service zerotier-one-api
+	@DESCRIPTION="OpenAPI bindings to the ZeroTierOne JSON API" bash generate.sh service zerotier-one-api
 
-.PHONY: generate central service
+.PHONY: central service
