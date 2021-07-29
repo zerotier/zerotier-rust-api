@@ -20,9 +20,9 @@ pub struct PeerPaths {
     #[serde(rename = "expired", skip_serializing_if = "Option::is_none")]
     pub expired: Option<bool>,
     #[serde(rename = "lastReceive", skip_serializing_if = "Option::is_none")]
-    pub last_receive: Option<i32>,
+    pub last_receive: Option<i64>,
     #[serde(rename = "lastSend", skip_serializing_if = "Option::is_none")]
-    pub last_send: Option<i32>,
+    pub last_send: Option<i64>,
     #[serde(rename = "preferred", skip_serializing_if = "Option::is_none")]
     pub preferred: Option<bool>,
     #[serde(rename = "trustedPathId", skip_serializing_if = "Option::is_none")]
