@@ -1,14 +1,14 @@
 # \NetworkApi
 
-All URIs are relative to *https://my.zerotier.com/api*
+All URIs are relative to *https://my.zerotier.com/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_network**](NetworkApi.md#delete_network) | **delete** /network/{networkID} | delete network
-[**get_network_by_id**](NetworkApi.md#get_network_by_id) | **get** /network/{networkID} | Get network by ID
-[**get_network_list**](NetworkApi.md#get_network_list) | **get** /network | Returns a list of Networks you have access to.
-[**new_network**](NetworkApi.md#new_network) | **post** /network | Create a new network.
-[**update_network**](NetworkApi.md#update_network) | **post** /network/{networkID} | update network configuration
+[**delete_network**](NetworkApi.md#delete_network) | **DELETE** /network/{networkID} | delete network
+[**get_network_by_id**](NetworkApi.md#get_network_by_id) | **GET** /network/{networkID} | Get network by ID
+[**get_network_list**](NetworkApi.md#get_network_list) | **GET** /network | Returns a list of Networks you have access to.
+[**new_network**](NetworkApi.md#new_network) | **POST** /network | Create a new network.
+[**update_network**](NetworkApi.md#update_network) | **POST** /network/{networkID} | update network configuration
 
 
 

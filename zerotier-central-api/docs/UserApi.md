@@ -1,14 +1,14 @@
 # \UserApi
 
-All URIs are relative to *https://my.zerotier.com/api*
+All URIs are relative to *https://my.zerotier.com/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_api_token**](UserApi.md#add_api_token) | **post** /user/{userID}/token | Add an API token
-[**delete_api_token**](UserApi.md#delete_api_token) | **delete** /user/{userID}/token/{tokenName} | Delete API Token
-[**delete_user_by_id**](UserApi.md#delete_user_by_id) | **delete** /user/{userID} | Delete user
-[**get_user_by_id**](UserApi.md#get_user_by_id) | **get** /user/{userID} | Get user record
-[**update_user_by_id**](UserApi.md#update_user_by_id) | **post** /user/{userID} | Update user record (SMS number or Display Name only)
+[**add_api_token**](UserApi.md#add_api_token) | **POST** /user/{userID}/token | Add an API token
+[**delete_api_token**](UserApi.md#delete_api_token) | **DELETE** /user/{userID}/token/{tokenName} | Delete API Token
+[**delete_user_by_id**](UserApi.md#delete_user_by_id) | **DELETE** /user/{userID} | Delete user
+[**get_user_by_id**](UserApi.md#get_user_by_id) | **GET** /user/{userID} | Get user record
+[**update_user_by_id**](UserApi.md#update_user_by_id) | **POST** /user/{userID} | Update user record (SMS number or Display Name only)
 
 
 

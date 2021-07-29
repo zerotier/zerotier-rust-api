@@ -1,7 +1,7 @@
 /*
  * ZeroTier Central API
  *
- * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/network</code></p>
+ * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
  *
  * The version of the OpenAPI document: v1
  * 
@@ -101,7 +101,7 @@ pub async fn accept_invitation(configuration: &configuration::Configuration, inv
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org-invitation/{inviteID}", configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
-    let mut local_var_req_builder = local_var_client.post(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -130,7 +130,7 @@ pub async fn decline_invitation(configuration: &configuration::Configuration, in
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org-invitation/{inviteID}", configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
-    let mut local_var_req_builder = local_var_client.delete(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -159,7 +159,7 @@ pub async fn get_invitation_by_id(configuration: &configuration::Configuration, 
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org-invitation/{inviteID}", configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -188,7 +188,7 @@ pub async fn get_organization(configuration: &configuration::Configuration, ) ->
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org", configuration.base_path);
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -217,7 +217,7 @@ pub async fn get_organization_by_id(configuration: &configuration::Configuration
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org/{orgID}", configuration.base_path, orgID=crate::apis::urlencode(org_id));
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -246,7 +246,7 @@ pub async fn get_organization_invitation_list(configuration: &configuration::Con
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org-invitation", configuration.base_path);
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -275,7 +275,7 @@ pub async fn get_organization_members(configuration: &configuration::Configurati
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org/{orgID}/user", configuration.base_path, orgID=crate::apis::urlencode(org_id));
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -304,7 +304,7 @@ pub async fn invite_user_by_email(configuration: &configuration::Configuration, 
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/org-invitation", configuration.base_path);
-    let mut local_var_req_builder = local_var_client.post(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

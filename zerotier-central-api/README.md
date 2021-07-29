@@ -1,6 +1,6 @@
 # Rust API client for zerotier-central-api
 
-ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/network</code></p>
+ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
 
 ## Overview
 
@@ -21,33 +21,34 @@ Put the package under your project folder and add the following to `Cargo.toml` 
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://my.zerotier.com/api*
+All URIs are relative to *https://my.zerotier.com/api/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*NetworkApi* | [**delete_network**](docs/NetworkApi.md#delete_network) | **delete** /network/{networkID} | delete network
-*NetworkApi* | [**get_network_by_id**](docs/NetworkApi.md#get_network_by_id) | **get** /network/{networkID} | Get network by ID
-*NetworkApi* | [**get_network_list**](docs/NetworkApi.md#get_network_list) | **get** /network | Returns a list of Networks you have access to.
-*NetworkApi* | [**new_network**](docs/NetworkApi.md#new_network) | **post** /network | Create a new network.
-*NetworkApi* | [**update_network**](docs/NetworkApi.md#update_network) | **post** /network/{networkID} | update network configuration
-*NetworkMemberApi* | [**delete_network_member**](docs/NetworkMemberApi.md#delete_network_member) | **delete** /network/{networkID}/member/{memberID} | Delete a network member
-*NetworkMemberApi* | [**get_network_member**](docs/NetworkMemberApi.md#get_network_member) | **get** /network/{networkID}/member/{memberID} | Return an individual member on a network
-*NetworkMemberApi* | [**get_network_member_list**](docs/NetworkMemberApi.md#get_network_member_list) | **get** /network/{networkID}/member | Returns a list of Members on the network.
-*NetworkMemberApi* | [**update_network_member**](docs/NetworkMemberApi.md#update_network_member) | **post** /network/{networkID}/member/{memberID} | Modify a network member
-*OrganizationsApi* | [**accept_invitation**](docs/OrganizationsApi.md#accept_invitation) | **post** /org-invitation/{inviteID} | Accept organization invitation
-*OrganizationsApi* | [**decline_invitation**](docs/OrganizationsApi.md#decline_invitation) | **delete** /org-invitation/{inviteID} | Decline organization invitation
-*OrganizationsApi* | [**get_invitation_by_id**](docs/OrganizationsApi.md#get_invitation_by_id) | **get** /org-invitation/{inviteID} | Get organization invitation
-*OrganizationsApi* | [**get_organization**](docs/OrganizationsApi.md#get_organization) | **get** /org | Get the current user's organization
-*OrganizationsApi* | [**get_organization_by_id**](docs/OrganizationsApi.md#get_organization_by_id) | **get** /org/{orgID} | Get organization by ID
-*OrganizationsApi* | [**get_organization_invitation_list**](docs/OrganizationsApi.md#get_organization_invitation_list) | **get** /org-invitation | Get list of organization invitations
-*OrganizationsApi* | [**get_organization_members**](docs/OrganizationsApi.md#get_organization_members) | **get** /org/{orgID}/user | Get list of organization members
-*OrganizationsApi* | [**invite_user_by_email**](docs/OrganizationsApi.md#invite_user_by_email) | **post** /org-invitation | Invite a user to your organization by email
-*UserApi* | [**add_api_token**](docs/UserApi.md#add_api_token) | **post** /user/{userID}/token | Add an API token
-*UserApi* | [**delete_api_token**](docs/UserApi.md#delete_api_token) | **delete** /user/{userID}/token/{tokenName} | Delete API Token
-*UserApi* | [**delete_user_by_id**](docs/UserApi.md#delete_user_by_id) | **delete** /user/{userID} | Delete user
-*UserApi* | [**get_user_by_id**](docs/UserApi.md#get_user_by_id) | **get** /user/{userID} | Get user record
-*UserApi* | [**update_user_by_id**](docs/UserApi.md#update_user_by_id) | **post** /user/{userID} | Update user record (SMS number or Display Name only)
-*UtilApi* | [**get_random_token**](docs/UtilApi.md#get_random_token) | **get** /randomToken | Get a random 32 character token
+*NetworkApi* | [**delete_network**](docs/NetworkApi.md#delete_network) | **DELETE** /network/{networkID} | delete network
+*NetworkApi* | [**get_network_by_id**](docs/NetworkApi.md#get_network_by_id) | **GET** /network/{networkID} | Get network by ID
+*NetworkApi* | [**get_network_list**](docs/NetworkApi.md#get_network_list) | **GET** /network | Returns a list of Networks you have access to.
+*NetworkApi* | [**new_network**](docs/NetworkApi.md#new_network) | **POST** /network | Create a new network.
+*NetworkApi* | [**update_network**](docs/NetworkApi.md#update_network) | **POST** /network/{networkID} | update network configuration
+*NetworkMemberApi* | [**delete_network_member**](docs/NetworkMemberApi.md#delete_network_member) | **DELETE** /network/{networkID}/member/{memberID} | Delete a network member
+*NetworkMemberApi* | [**get_network_member**](docs/NetworkMemberApi.md#get_network_member) | **GET** /network/{networkID}/member/{memberID} | Return an individual member on a network
+*NetworkMemberApi* | [**get_network_member_list**](docs/NetworkMemberApi.md#get_network_member_list) | **GET** /network/{networkID}/member | Returns a list of Members on the network.
+*NetworkMemberApi* | [**update_network_member**](docs/NetworkMemberApi.md#update_network_member) | **POST** /network/{networkID}/member/{memberID} | Modify a network member
+*OrganizationsApi* | [**accept_invitation**](docs/OrganizationsApi.md#accept_invitation) | **POST** /org-invitation/{inviteID} | Accept organization invitation
+*OrganizationsApi* | [**decline_invitation**](docs/OrganizationsApi.md#decline_invitation) | **DELETE** /org-invitation/{inviteID} | Decline organization invitation
+*OrganizationsApi* | [**get_invitation_by_id**](docs/OrganizationsApi.md#get_invitation_by_id) | **GET** /org-invitation/{inviteID} | Get organization invitation
+*OrganizationsApi* | [**get_organization**](docs/OrganizationsApi.md#get_organization) | **GET** /org | Get the current user's organization
+*OrganizationsApi* | [**get_organization_by_id**](docs/OrganizationsApi.md#get_organization_by_id) | **GET** /org/{orgID} | Get organization by ID
+*OrganizationsApi* | [**get_organization_invitation_list**](docs/OrganizationsApi.md#get_organization_invitation_list) | **GET** /org-invitation | Get list of organization invitations
+*OrganizationsApi* | [**get_organization_members**](docs/OrganizationsApi.md#get_organization_members) | **GET** /org/{orgID}/user | Get list of organization members
+*OrganizationsApi* | [**invite_user_by_email**](docs/OrganizationsApi.md#invite_user_by_email) | **POST** /org-invitation | Invite a user to your organization by email
+*UserApi* | [**add_api_token**](docs/UserApi.md#add_api_token) | **POST** /user/{userID}/token | Add an API token
+*UserApi* | [**delete_api_token**](docs/UserApi.md#delete_api_token) | **DELETE** /user/{userID}/token/{tokenName} | Delete API Token
+*UserApi* | [**delete_user_by_id**](docs/UserApi.md#delete_user_by_id) | **DELETE** /user/{userID} | Delete user
+*UserApi* | [**get_user_by_id**](docs/UserApi.md#get_user_by_id) | **GET** /user/{userID} | Get user record
+*UserApi* | [**update_user_by_id**](docs/UserApi.md#update_user_by_id) | **POST** /user/{userID} | Update user record (SMS number or Display Name only)
+*UtilApi* | [**get_random_token**](docs/UtilApi.md#get_random_token) | **GET** /randomToken | Get a random 32 character token
+*UtilApi* | [**get_status**](docs/UtilApi.md#get_status) | **GET** /status | Obtain the overall status of the account tied to the API token in use.
 
 
 ## Documentation For Models
@@ -69,6 +70,8 @@ Class | Method | HTTP request | Description
  - [Permissions](docs/Permissions.md)
  - [RandomToken](docs/RandomToken.md)
  - [Route](docs/Route.md)
+ - [Status](docs/Status.md)
+ - [StatusLoginMethods](docs/StatusLoginMethods.md)
  - [User](docs/User.md)
 
 

@@ -1,7 +1,7 @@
 /*
  * ZeroTier Central API
  *
- * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/network</code></p>
+ * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
  *
  * The version of the OpenAPI document: v1
  * 
@@ -40,7 +40,7 @@ impl Configuration {
 impl Default for Configuration {
     fn default() -> Self {
         Configuration {
-            base_path: "https://my.zerotier.com/api".to_owned(),
+            base_path: "https://my.zerotier.com/api/v1".to_owned(),
             user_agent: Some("OpenAPI-Generator/v1/rust".to_owned()),
             client: reqwest::Client::new(),
             basic_auth: None,

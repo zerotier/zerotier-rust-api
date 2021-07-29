@@ -12,23 +12,32 @@
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct AuthMethods {
-    /// email address for built-in authentication
+pub struct StatusLoginMethods {
     #[serde(rename = "local", skip_serializing_if = "Option::is_none")]
-    pub local: Option<String>,
-    /// Google OIDC ID
+    pub local: Option<bool>,
     #[serde(rename = "google", skip_serializing_if = "Option::is_none")]
-    pub google: Option<String>,
-    /// Generic OIDC ID
+    pub google: Option<bool>,
+    #[serde(rename = "twitter", skip_serializing_if = "Option::is_none")]
+    pub twitter: Option<bool>,
+    #[serde(rename = "facebook", skip_serializing_if = "Option::is_none")]
+    pub facebook: Option<bool>,
+    #[serde(rename = "github", skip_serializing_if = "Option::is_none")]
+    pub github: Option<bool>,
+    #[serde(rename = "saml", skip_serializing_if = "Option::is_none")]
+    pub saml: Option<bool>,
     #[serde(rename = "oidc", skip_serializing_if = "Option::is_none")]
-    pub oidc: Option<String>,
+    pub oidc: Option<bool>,
 }
 
-impl AuthMethods {
-    pub fn new() -> AuthMethods {
-        AuthMethods {
+impl StatusLoginMethods {
+    pub fn new() -> StatusLoginMethods {
+        StatusLoginMethods {
             local: None,
             google: None,
+            twitter: None,
+            facebook: None,
+            github: None,
+            saml: None,
             oidc: None,
         }
     }

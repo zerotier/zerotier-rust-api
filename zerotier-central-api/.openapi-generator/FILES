@@ -23,6 +23,8 @@ docs/OrganizationsApi.md
 docs/Permissions.md
 docs/RandomToken.md
 docs/Route.md
+docs/Status.md
+docs/StatusLoginMethods.md
 docs/User.md
 docs/UserApi.md
 docs/UtilApi.md
@@ -53,4 +55,6 @@ src/models/organization_member.rs
 src/models/permissions.rs
 src/models/random_token.rs
 src/models/route.rs
+src/models/status.rs
+src/models/status_login_methods.rs
 src/models/user.rs

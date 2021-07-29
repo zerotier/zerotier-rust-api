@@ -1,17 +1,17 @@
 # \OrganizationsApi
 
-All URIs are relative to *https://my.zerotier.com/api*
+All URIs are relative to *https://my.zerotier.com/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**accept_invitation**](OrganizationsApi.md#accept_invitation) | **post** /org-invitation/{inviteID} | Accept organization invitation
-[**decline_invitation**](OrganizationsApi.md#decline_invitation) | **delete** /org-invitation/{inviteID} | Decline organization invitation
-[**get_invitation_by_id**](OrganizationsApi.md#get_invitation_by_id) | **get** /org-invitation/{inviteID} | Get organization invitation
-[**get_organization**](OrganizationsApi.md#get_organization) | **get** /org | Get the current user's organization
-[**get_organization_by_id**](OrganizationsApi.md#get_organization_by_id) | **get** /org/{orgID} | Get organization by ID
-[**get_organization_invitation_list**](OrganizationsApi.md#get_organization_invitation_list) | **get** /org-invitation | Get list of organization invitations
-[**get_organization_members**](OrganizationsApi.md#get_organization_members) | **get** /org/{orgID}/user | Get list of organization members
-[**invite_user_by_email**](OrganizationsApi.md#invite_user_by_email) | **post** /org-invitation | Invite a user to your organization by email
+[**accept_invitation**](OrganizationsApi.md#accept_invitation) | **POST** /org-invitation/{inviteID} | Accept organization invitation
+[**decline_invitation**](OrganizationsApi.md#decline_invitation) | **DELETE** /org-invitation/{inviteID} | Decline organization invitation
+[**get_invitation_by_id**](OrganizationsApi.md#get_invitation_by_id) | **GET** /org-invitation/{inviteID} | Get organization invitation
+[**get_organization**](OrganizationsApi.md#get_organization) | **GET** /org | Get the current user's organization
+[**get_organization_by_id**](OrganizationsApi.md#get_organization_by_id) | **GET** /org/{orgID} | Get organization by ID
+[**get_organization_invitation_list**](OrganizationsApi.md#get_organization_invitation_list) | **GET** /org-invitation | Get list of organization invitations
+[**get_organization_members**](OrganizationsApi.md#get_organization_members) | **GET** /org/{orgID}/user | Get list of organization members
+[**invite_user_by_email**](OrganizationsApi.md#invite_user_by_email) | **POST** /org-invitation | Invite a user to your organization by email
 
 
 

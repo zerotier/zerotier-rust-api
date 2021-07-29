@@ -1,13 +1,13 @@
 # \NetworkMemberApi
 
-All URIs are relative to *https://my.zerotier.com/api*
+All URIs are relative to *https://my.zerotier.com/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**delete_network_member**](NetworkMemberApi.md#delete_network_member) | **delete** /network/{networkID}/member/{memberID} | Delete a network member
-[**get_network_member**](NetworkMemberApi.md#get_network_member) | **get** /network/{networkID}/member/{memberID} | Return an individual member on a network
-[**get_network_member_list**](NetworkMemberApi.md#get_network_member_list) | **get** /network/{networkID}/member | Returns a list of Members on the network.
-[**update_network_member**](NetworkMemberApi.md#update_network_member) | **post** /network/{networkID}/member/{memberID} | Modify a network member
+[**delete_network_member**](NetworkMemberApi.md#delete_network_member) | **DELETE** /network/{networkID}/member/{memberID} | Delete a network member
+[**get_network_member**](NetworkMemberApi.md#get_network_member) | **GET** /network/{networkID}/member/{memberID} | Return an individual member on a network
+[**get_network_member_list**](NetworkMemberApi.md#get_network_member_list) | **GET** /network/{networkID}/member | Returns a list of Members on the network.
+[**update_network_member**](NetworkMemberApi.md#update_network_member) | **POST** /network/{networkID}/member/{memberID} | Modify a network member
 
 
 
