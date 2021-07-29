@@ -16,7 +16,7 @@ pub struct Status {
     #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
     #[serde(rename = "clock", skip_serializing_if = "Option::is_none")]
-    pub clock: Option<i32>,
+    pub clock: Option<i64>,
     #[serde(rename = "config", skip_serializing_if = "Option::is_none")]
     pub config: Option<Box<crate::models::StatusConfig>>,
     #[serde(rename = "online", skip_serializing_if = "Option::is_none")]
