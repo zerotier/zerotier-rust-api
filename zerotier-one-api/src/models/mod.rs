@@ -1,3 +1,17 @@
+pub mod controller_network;
+pub use self::controller_network::ControllerNetwork;
+pub mod controller_network_ip_assignment_pools;
+pub use self::controller_network_ip_assignment_pools::ControllerNetworkIpAssignmentPools;
+pub mod controller_network_member;
+pub use self::controller_network_member::ControllerNetworkMember;
+pub mod controller_network_routes;
+pub use self::controller_network_routes::ControllerNetworkRoutes;
+pub mod controller_network_v4_assign_mode;
+pub use self::controller_network_v4_assign_mode::ControllerNetworkV4AssignMode;
+pub mod controller_network_v6_assign_mode;
+pub use self::controller_network_v6_assign_mode::ControllerNetworkV6AssignMode;
+pub mod controller_status;
+pub use self::controller_status::ControllerStatus;
 pub mod network;
 pub use self::network::Network;
 pub mod network_all_of;

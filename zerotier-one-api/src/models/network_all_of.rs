@@ -13,16 +13,16 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct NetworkAllOf {
-    /// Let ZeroTier modify the system's DNS settings
+    /// Let ZeroTier modify the system's DNS settings.
     #[serde(rename = "allowDNS", skip_serializing_if = "Option::is_none")]
     pub allow_dns: Option<bool>,
-    /// Let ZeroTier to modify the system's default route.
+    /// Let ZeroTier modify the system's default route.
     #[serde(rename = "allowDefault", skip_serializing_if = "Option::is_none")]
     pub allow_default: Option<bool>,
-    /// Let ZeroTier to manage IP addresses and Route assignments that aren't in private ranges (rfc1918).
+    /// Let ZeroTier manage IP addresses and route assignments that aren't in private ranges (rfc1918).
     #[serde(rename = "allowGlobal", skip_serializing_if = "Option::is_none")]
     pub allow_global: Option<bool>,
-    /// Let ZeroTier to manage IP addresses and Route assignments.
+    /// Let ZeroTier manage IP addresses and Route assignments.
     #[serde(rename = "allowManaged", skip_serializing_if = "Option::is_none")]
     pub allow_managed: Option<bool>,
 }

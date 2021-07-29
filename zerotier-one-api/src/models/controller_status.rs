@@ -12,18 +12,21 @@
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct NetworkAllOf1MulticastSubscriptions {
-    #[serde(rename = "adi", skip_serializing_if = "Option::is_none")]
-    pub adi: Option<i32>,
-    #[serde(rename = "mac", skip_serializing_if = "Option::is_none")]
-    pub mac: Option<String>,
+pub struct ControllerStatus {
+    #[serde(rename = "controller", skip_serializing_if = "Option::is_none")]
+    pub controller: Option<bool>,
+    #[serde(rename = "apiVersion", skip_serializing_if = "Option::is_none")]
+    pub api_version: Option<i32>,
+    #[serde(rename = "clock", skip_serializing_if = "Option::is_none")]
+    pub clock: Option<i32>,
 }
 
-impl NetworkAllOf1MulticastSubscriptions {
-    pub fn new() -> NetworkAllOf1MulticastSubscriptions {
-        NetworkAllOf1MulticastSubscriptions {
-            adi: None,
-            mac: None,
+impl ControllerStatus {
+    pub fn new() -> ControllerStatus {
+        ControllerStatus {
+            controller: None,
+            api_version: None,
+            clock: None,
         }
     }
 }

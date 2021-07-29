@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **address** | Option<**String**> |  | [optional]
-**clock** | Option<**f32**> |  | [optional]
+**clock** | Option<**i32**> |  | [optional]
 **config** | Option<[**crate::models::StatusConfig**](Status_config.md)> |  | [optional]
 **online** | Option<**bool**> |  | [optional]
-**planet_world_id** | Option<**f32**> |  | [optional]
-**planet_world_timestamp** | Option<**f32**> |  | [optional]
+**planet_world_id** | Option<**i32**> |  | [optional]
+**planet_world_timestamp** | Option<**i32**> |  | [optional]
 **public_identity** | Option<**String**> |  | [optional]
 **tcp_fallback_active** | Option<**bool**> |  | [optional]
 **version** | Option<**String**> |  | [optional]

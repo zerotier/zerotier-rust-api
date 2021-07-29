@@ -13,13 +13,13 @@
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Network {
-    /// Let ZeroTier modify the system's DNS settings
+    /// Let ZeroTier modify the system's DNS settings.
     #[serde(rename = "allowDNS", skip_serializing_if = "Option::is_none")]
     pub allow_dns: Option<bool>,
-    /// Let ZeroTier to modify the system's default route.
+    /// Let ZeroTier modify the system's default route.
     #[serde(rename = "allowDefault", skip_serializing_if = "Option::is_none")]
     pub allow_default: Option<bool>,
-    /// Let ZeroTier to manage IP addresses and Route assignments that aren't in private ranges (rfc1918).
+    /// Let ZeroTier manage IP addresses and Route assignments that aren't in private ranges (rfc1918).
     #[serde(rename = "allowGlobal", skip_serializing_if = "Option::is_none")]
     pub allow_global: Option<bool>,
     /// Let ZeroTier to manage IP addresses and Route assignments.
@@ -35,7 +35,7 @@ pub struct Network {
     pub dns: Option<Box<crate::models::NetworkAllOf1Dns>>,
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
     pub id: Option<String>,
-    /// MAC address for this network's interface
+    /// MAC address for this network's interface.
     #[serde(rename = "mac", skip_serializing_if = "Option::is_none")]
     pub mac: Option<String>,
     #[serde(rename = "mtu", skip_serializing_if = "Option::is_none")]
@@ -49,7 +49,7 @@ pub struct Network {
     #[serde(rename = "portDeviceName", skip_serializing_if = "Option::is_none")]
     pub port_device_name: Option<String>,
     #[serde(rename = "portError", skip_serializing_if = "Option::is_none")]
-    pub port_error: Option<f32>,
+    pub port_error: Option<i32>,
     #[serde(rename = "routes", skip_serializing_if = "Option::is_none")]
     pub routes: Option<Vec<serde_json::Value>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]

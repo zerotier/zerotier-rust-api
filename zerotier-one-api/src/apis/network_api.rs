@@ -53,7 +53,7 @@ pub async fn delete_network(configuration: &configuration::Configuration, networ
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/network/{networkID}", configuration.base_path, networkID=crate::apis::urlencode(network_id));
-    let mut local_var_req_builder = local_var_client.delete(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -87,7 +87,7 @@ pub async fn get_network(configuration: &configuration::Configuration, network_i
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/network/{networkID}", configuration.base_path, networkID=crate::apis::urlencode(network_id));
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -121,7 +121,7 @@ pub async fn get_networks(configuration: &configuration::Configuration, ) -> Res
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/network", configuration.base_path);
-    let mut local_var_req_builder = local_var_client.get(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
@@ -155,7 +155,7 @@ pub async fn update_network(configuration: &configuration::Configuration, networ
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!("{}/network/{networkID}", configuration.base_path, networkID=crate::apis::urlencode(network_id));
-    let mut local_var_req_builder = local_var_client.post(local_var_uri_str.as_str());
+    let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
     if let Some(ref local_var_user_agent) = configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());

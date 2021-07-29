@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:9993*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_status**](StatusApi.md#get_status) | **get** /status | Node status and addressing info.
+[**get_status**](StatusApi.md#get_status) | **GET** /status | Node status and addressing info.
 
 
 

@@ -24,17 +24,31 @@ All URIs are relative to *http://localhost:9993*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*NetworkApi* | [**delete_network**](docs/NetworkApi.md#delete_network) | **delete** /network/{networkID} | Leave a network
-*NetworkApi* | [**get_network**](docs/NetworkApi.md#get_network) | **get** /network/{networkID} | Gets a joined Network by ID.
-*NetworkApi* | [**get_networks**](docs/NetworkApi.md#get_networks) | **get** /network | Get all network memberships.
-*NetworkApi* | [**update_network**](docs/NetworkApi.md#update_network) | **post** /network/{networkID} | Join a network or update it's configuration
-*PeerApi* | [**get_peer**](docs/PeerApi.md#get_peer) | **get** /peer/{address} | Get information about a specific peer.
-*PeerApi* | [**get_peers**](docs/PeerApi.md#get_peers) | **get** /peer | Get all peers.
-*StatusApi* | [**get_status**](docs/StatusApi.md#get_status) | **get** /status | Node status and addressing info.
+*ControllerApi* | [**generate_controller_network**](docs/ControllerApi.md#generate_controller_network) | **POST** /controller/network/{controllerID}______ | Generate Random Network ID.
+*ControllerApi* | [**get_controller_network**](docs/ControllerApi.md#get_controller_network) | **GET** /controller/network/{networkID} | Get Network by ID.
+*ControllerApi* | [**get_controller_network_member**](docs/ControllerApi.md#get_controller_network_member) | **GET** /controller/network/{networkID}/member{nodeID} | Get Network Member Details by ID.
+*ControllerApi* | [**get_controller_network_members**](docs/ControllerApi.md#get_controller_network_members) | **GET** /controller/network/{networkID}/member | List Network Members.
+*ControllerApi* | [**get_controller_networks**](docs/ControllerApi.md#get_controller_networks) | **GET** /controller/network | List Networks.
+*ControllerApi* | [**get_controller_status**](docs/ControllerApi.md#get_controller_status) | **GET** /controller | Get Controller Status.
+*ControllerApi* | [**set_controller_network**](docs/ControllerApi.md#set_controller_network) | **POST** /controller/network/{networkID} | Create or Update a Network.
+*NetworkApi* | [**delete_network**](docs/NetworkApi.md#delete_network) | **DELETE** /network/{networkID} | Leave a network.
+*NetworkApi* | [**get_network**](docs/NetworkApi.md#get_network) | **GET** /network/{networkID} | Get a joined Network membership configuration by Network ID.
+*NetworkApi* | [**get_networks**](docs/NetworkApi.md#get_networks) | **GET** /network | Get all network memberships.
+*NetworkApi* | [**update_network**](docs/NetworkApi.md#update_network) | **POST** /network/{networkID} | Join a network or update it's configuration by Network ID.
+*PeerApi* | [**get_peer**](docs/PeerApi.md#get_peer) | **GET** /peer/{address} | Get information about a specific peer by Node ID.
+*PeerApi* | [**get_peers**](docs/PeerApi.md#get_peers) | **GET** /peer | Get all peers.
+*StatusApi* | [**get_status**](docs/StatusApi.md#get_status) | **GET** /status | Node status and addressing info.
 
 
 ## Documentation For Models
 
+ - [ControllerNetwork](docs/ControllerNetwork.md)
+ - [ControllerNetworkIpAssignmentPools](docs/ControllerNetworkIpAssignmentPools.md)
+ - [ControllerNetworkMember](docs/ControllerNetworkMember.md)
+ - [ControllerNetworkRoutes](docs/ControllerNetworkRoutes.md)
+ - [ControllerNetworkV4AssignMode](docs/ControllerNetworkV4AssignMode.md)
+ - [ControllerNetworkV6AssignMode](docs/ControllerNetworkV6AssignMode.md)
+ - [ControllerStatus](docs/ControllerStatus.md)
  - [Network](docs/Network.md)
  - [NetworkAllOf](docs/NetworkAllOf.md)
  - [NetworkAllOf1](docs/NetworkAllOf1.md)

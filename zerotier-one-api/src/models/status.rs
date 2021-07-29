@@ -16,15 +16,15 @@ pub struct Status {
     #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
     #[serde(rename = "clock", skip_serializing_if = "Option::is_none")]
-    pub clock: Option<f32>,
+    pub clock: Option<i32>,
     #[serde(rename = "config", skip_serializing_if = "Option::is_none")]
     pub config: Option<Box<crate::models::StatusConfig>>,
     #[serde(rename = "online", skip_serializing_if = "Option::is_none")]
     pub online: Option<bool>,
     #[serde(rename = "planetWorldId", skip_serializing_if = "Option::is_none")]
-    pub planet_world_id: Option<f32>,
+    pub planet_world_id: Option<i32>,
     #[serde(rename = "planetWorldTimestamp", skip_serializing_if = "Option::is_none")]
-    pub planet_world_timestamp: Option<f32>,
+    pub planet_world_timestamp: Option<i32>,
     #[serde(rename = "publicIdentity", skip_serializing_if = "Option::is_none")]
     pub public_identity: Option<String>,
     #[serde(rename = "tcpFallbackActive", skip_serializing_if = "Option::is_none")]

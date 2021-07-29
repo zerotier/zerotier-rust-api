@@ -12,18 +12,15 @@
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct NetworkAllOf1MulticastSubscriptions {
-    #[serde(rename = "adi", skip_serializing_if = "Option::is_none")]
-    pub adi: Option<i32>,
-    #[serde(rename = "mac", skip_serializing_if = "Option::is_none")]
-    pub mac: Option<String>,
+pub struct ControllerNetworkV4AssignMode {
+    #[serde(rename = "zt", skip_serializing_if = "Option::is_none")]
+    pub zt: Option<bool>,
 }
 
-impl NetworkAllOf1MulticastSubscriptions {
-    pub fn new() -> NetworkAllOf1MulticastSubscriptions {
-        NetworkAllOf1MulticastSubscriptions {
-            adi: None,
-            mac: None,
+impl ControllerNetworkV4AssignMode {
+    pub fn new() -> ControllerNetworkV4AssignMode {
+        ControllerNetworkV4AssignMode {
+            zt: None,
         }
     }
 }

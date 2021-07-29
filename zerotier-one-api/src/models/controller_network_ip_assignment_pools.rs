@@ -12,18 +12,18 @@
 
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct NetworkAllOf1MulticastSubscriptions {
-    #[serde(rename = "adi", skip_serializing_if = "Option::is_none")]
-    pub adi: Option<i32>,
-    #[serde(rename = "mac", skip_serializing_if = "Option::is_none")]
-    pub mac: Option<String>,
+pub struct ControllerNetworkIpAssignmentPools {
+    #[serde(rename = "ipRangeStart", skip_serializing_if = "Option::is_none")]
+    pub ip_range_start: Option<String>,
+    #[serde(rename = "ipRangeEnd", skip_serializing_if = "Option::is_none")]
+    pub ip_range_end: Option<String>,
 }
 
-impl NetworkAllOf1MulticastSubscriptions {
-    pub fn new() -> NetworkAllOf1MulticastSubscriptions {
-        NetworkAllOf1MulticastSubscriptions {
-            adi: None,
-            mac: None,
+impl ControllerNetworkIpAssignmentPools {
+    pub fn new() -> ControllerNetworkIpAssignmentPools {
+        ControllerNetworkIpAssignmentPools {
+            ip_range_start: None,
+            ip_range_end: None,
         }
     }
 }

@@ -1,11 +1,10 @@
-# NetworkAllOf1MulticastSubscriptions
+# ControllerNetworkV4AssignMode
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**adi** | Option<**i32**> |  | [optional]
-**mac** | Option<**String**> |  | [optional]
+**zt** | Option<**bool**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
