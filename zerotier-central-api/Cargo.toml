@@ -1,6 +1,6 @@
 [package]
 name = "zerotier-central-api"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2018"
 description = "OpenAPI bindings to the ZeroTier Central (https://my.zerotier.com) service"
 authors = ["Erik Hollensbe <erik.hollensbe@zerotier.com>", "Adam Ierymenko <adam.ierymenko@zerotier.com>"]

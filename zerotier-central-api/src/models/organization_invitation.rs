@@ -24,7 +24,7 @@ pub struct OrganizationInvitation {
     pub id: Option<String>,
     /// Creation time of the invite
     #[serde(rename = "creation_time", skip_serializing_if = "Option::is_none")]
-    pub creation_time: Option<i32>,
+    pub creation_time: Option<i64>,
     /// Invitation status
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Box<crate::models::InviteStatus>>,
