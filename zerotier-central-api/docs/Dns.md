@@ -1,4 +1,4 @@
-# NetworkConfigDns
+# Dns
 
 ## Properties
 

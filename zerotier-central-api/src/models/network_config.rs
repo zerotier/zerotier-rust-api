@@ -1,7 +1,7 @@
 /*
  * ZeroTier Central API
  *
- * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
+ * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>
  *
  * The version of the OpenAPI document: v1
  * 
@@ -11,7 +11,7 @@
 
 
 
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct NetworkConfig {
     /// Network ID
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
@@ -23,7 +23,7 @@ pub struct NetworkConfig {
     #[serde(rename = "capabilities", skip_serializing_if = "Option::is_none")]
     pub capabilities: Option<Vec<serde_json::Value>>,
     #[serde(rename = "dns", skip_serializing_if = "Option::is_none")]
-    pub dns: Option<Box<crate::models::NetworkConfigDns>>,
+    pub dns: Option<crate::models::Dns>,
     /// Enable broadcast packets on the network
     #[serde(rename = "enableBroadcast", skip_serializing_if = "Option::is_none")]
     pub enable_broadcast: Option<bool>,

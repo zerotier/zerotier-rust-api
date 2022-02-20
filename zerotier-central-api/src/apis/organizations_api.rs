@@ -1,7 +1,7 @@
 /*
  * ZeroTier Central API
  *
- * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
+ * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>
  *
  * The version of the OpenAPI document: v1
  * 
@@ -15,7 +15,7 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 
-/// struct for typed errors of method `accept_invitation`
+/// struct for typed errors of method [`accept_invitation`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AcceptInvitationError {
@@ -25,7 +25,7 @@ pub enum AcceptInvitationError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `decline_invitation`
+/// struct for typed errors of method [`decline_invitation`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeclineInvitationError {
@@ -35,7 +35,7 @@ pub enum DeclineInvitationError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_invitation_by_id`
+/// struct for typed errors of method [`get_invitation_by_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetInvitationByIdError {
@@ -45,7 +45,7 @@ pub enum GetInvitationByIdError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_organization`
+/// struct for typed errors of method [`get_organization`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetOrganizationError {
@@ -55,7 +55,7 @@ pub enum GetOrganizationError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_organization_by_id`
+/// struct for typed errors of method [`get_organization_by_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetOrganizationByIdError {
@@ -65,7 +65,7 @@ pub enum GetOrganizationByIdError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_organization_invitation_list`
+/// struct for typed errors of method [`get_organization_invitation_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetOrganizationInvitationListError {
@@ -75,7 +75,7 @@ pub enum GetOrganizationInvitationListError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_organization_members`
+/// struct for typed errors of method [`get_organization_members`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetOrganizationMembersError {
@@ -85,7 +85,7 @@ pub enum GetOrganizationMembersError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `invite_user_by_email`
+/// struct for typed errors of method [`invite_user_by_email`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum InviteUserByEmailError {
@@ -97,16 +97,17 @@ pub enum InviteUserByEmailError {
 
 
 pub async fn accept_invitation(configuration: &configuration::Configuration, invite_id: &str) -> Result<crate::models::OrganizationInvitation, Error<AcceptInvitationError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org-invitation/{inviteID}", configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
+    let local_var_uri_str = format!("{}/org-invitation/{inviteID}", local_var_configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -126,16 +127,17 @@ pub async fn accept_invitation(configuration: &configuration::Configuration, inv
 }
 
 pub async fn decline_invitation(configuration: &configuration::Configuration, invite_id: &str) -> Result<(), Error<DeclineInvitationError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org-invitation/{inviteID}", configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
+    let local_var_uri_str = format!("{}/org-invitation/{inviteID}", local_var_configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -155,16 +157,17 @@ pub async fn decline_invitation(configuration: &configuration::Configuration, in
 }
 
 pub async fn get_invitation_by_id(configuration: &configuration::Configuration, invite_id: &str) -> Result<crate::models::OrganizationInvitation, Error<GetInvitationByIdError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org-invitation/{inviteID}", configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
+    let local_var_uri_str = format!("{}/org-invitation/{inviteID}", local_var_configuration.base_path, inviteID=crate::apis::urlencode(invite_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -184,16 +187,17 @@ pub async fn get_invitation_by_id(configuration: &configuration::Configuration, 
 }
 
 pub async fn get_organization(configuration: &configuration::Configuration, ) -> Result<crate::models::Organization, Error<GetOrganizationError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org", configuration.base_path);
+    let local_var_uri_str = format!("{}/org", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -213,16 +217,17 @@ pub async fn get_organization(configuration: &configuration::Configuration, ) ->
 }
 
 pub async fn get_organization_by_id(configuration: &configuration::Configuration, org_id: &str) -> Result<crate::models::Organization, Error<GetOrganizationByIdError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org/{orgID}", configuration.base_path, orgID=crate::apis::urlencode(org_id));
+    let local_var_uri_str = format!("{}/org/{orgID}", local_var_configuration.base_path, orgID=crate::apis::urlencode(org_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -242,16 +247,17 @@ pub async fn get_organization_by_id(configuration: &configuration::Configuration
 }
 
 pub async fn get_organization_invitation_list(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::OrganizationInvitation>, Error<GetOrganizationInvitationListError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org-invitation", configuration.base_path);
+    let local_var_uri_str = format!("{}/org-invitation", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -271,16 +277,17 @@ pub async fn get_organization_invitation_list(configuration: &configuration::Con
 }
 
 pub async fn get_organization_members(configuration: &configuration::Configuration, org_id: &str) -> Result<crate::models::OrganizationMember, Error<GetOrganizationMembersError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org/{orgID}/user", configuration.base_path, orgID=crate::apis::urlencode(org_id));
+    let local_var_uri_str = format!("{}/org/{orgID}/user", local_var_configuration.base_path, orgID=crate::apis::urlencode(org_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -300,16 +307,17 @@ pub async fn get_organization_members(configuration: &configuration::Configurati
 }
 
 pub async fn invite_user_by_email(configuration: &configuration::Configuration, organization_invitation: crate::models::OrganizationInvitation) -> Result<crate::models::OrganizationInvitation, Error<InviteUserByEmailError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/org-invitation", configuration.base_path);
+    let local_var_uri_str = format!("{}/org-invitation", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     local_var_req_builder = local_var_req_builder.json(&organization_invitation);

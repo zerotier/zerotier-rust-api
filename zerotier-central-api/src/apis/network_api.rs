@@ -1,7 +1,7 @@
 /*
  * ZeroTier Central API
  *
- * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
+ * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>
  *
  * The version of the OpenAPI document: v1
  * 
@@ -15,7 +15,7 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 
-/// struct for typed errors of method `delete_network`
+/// struct for typed errors of method [`delete_network`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteNetworkError {
@@ -25,7 +25,7 @@ pub enum DeleteNetworkError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_network_by_id`
+/// struct for typed errors of method [`get_network_by_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetNetworkByIdError {
@@ -35,7 +35,7 @@ pub enum GetNetworkByIdError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_network_list`
+/// struct for typed errors of method [`get_network_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetNetworkListError {
@@ -43,7 +43,7 @@ pub enum GetNetworkListError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `new_network`
+/// struct for typed errors of method [`new_network`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum NewNetworkError {
@@ -51,7 +51,7 @@ pub enum NewNetworkError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `update_network`
+/// struct for typed errors of method [`update_network`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateNetworkError {
@@ -63,16 +63,17 @@ pub enum UpdateNetworkError {
 
 
 pub async fn delete_network(configuration: &configuration::Configuration, network_id: &str) -> Result<(), Error<DeleteNetworkError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/network/{networkID}", configuration.base_path, networkID=crate::apis::urlencode(network_id));
+    let local_var_uri_str = format!("{}/network/{networkID}", local_var_configuration.base_path, networkID=crate::apis::urlencode(network_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -93,16 +94,17 @@ pub async fn delete_network(configuration: &configuration::Configuration, networ
 
 /// Returns a single network
 pub async fn get_network_by_id(configuration: &configuration::Configuration, network_id: &str) -> Result<crate::models::Network, Error<GetNetworkByIdError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/network/{networkID}", configuration.base_path, networkID=crate::apis::urlencode(network_id));
+    let local_var_uri_str = format!("{}/network/{networkID}", local_var_configuration.base_path, networkID=crate::apis::urlencode(network_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -122,16 +124,17 @@ pub async fn get_network_by_id(configuration: &configuration::Configuration, net
 }
 
 pub async fn get_network_list(configuration: &configuration::Configuration, ) -> Result<Vec<crate::models::Network>, Error<GetNetworkListError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/network", configuration.base_path);
+    let local_var_uri_str = format!("{}/network", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -151,16 +154,17 @@ pub async fn get_network_list(configuration: &configuration::Configuration, ) ->
 }
 
 pub async fn new_network(configuration: &configuration::Configuration, body: serde_json::Value) -> Result<crate::models::Network, Error<NewNetworkError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/network", configuration.base_path);
+    let local_var_uri_str = format!("{}/network", local_var_configuration.base_path);
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     local_var_req_builder = local_var_req_builder.json(&body);
@@ -181,16 +185,17 @@ pub async fn new_network(configuration: &configuration::Configuration, body: ser
 }
 
 pub async fn update_network(configuration: &configuration::Configuration, network_id: &str, network: crate::models::Network) -> Result<crate::models::Network, Error<UpdateNetworkError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/network/{networkID}", configuration.base_path, networkID=crate::apis::urlencode(network_id));
+    let local_var_uri_str = format!("{}/network/{networkID}", local_var_configuration.base_path, networkID=crate::apis::urlencode(network_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     local_var_req_builder = local_var_req_builder.json(&network);

@@ -12,24 +12,20 @@
 
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
-pub struct RandomToken {
-    /// Current time on server
-    #[serde(rename = "clock", skip_serializing_if = "Option::is_none")]
-    pub clock: Option<i64>,
-    /// hex encoded random bytes of the token
-    #[serde(rename = "hex", skip_serializing_if = "Option::is_none")]
-    pub hex: Option<String>,
-    /// Random 32 character token
-    #[serde(rename = "token", skip_serializing_if = "Option::is_none")]
-    pub token: Option<String>,
+pub struct Dns {
+    /// Search domain to use for DNS records
+    #[serde(rename = "domain", skip_serializing_if = "Option::is_none")]
+    pub domain: Option<String>,
+    /// IP address of unicast DNS service
+    #[serde(rename = "servers", skip_serializing_if = "Option::is_none")]
+    pub servers: Option<Vec<String>>,
 }
 
-impl RandomToken {
-    pub fn new() -> RandomToken {
-        RandomToken {
-            clock: None,
-            hex: None,
-            token: None,
+impl Dns {
+    pub fn new() -> Dns {
+        Dns {
+            domain: None,
+            servers: None,
         }
     }
 }

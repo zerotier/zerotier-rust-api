@@ -1,7 +1,7 @@
 /*
  * ZeroTier Central API
  *
- * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p>
+ * ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>
  *
  * The version of the OpenAPI document: v1
  * 
@@ -15,7 +15,7 @@ use crate::apis::ResponseContent;
 use super::{Error, configuration};
 
 
-/// struct for typed errors of method `add_api_token`
+/// struct for typed errors of method [`add_api_token`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum AddApiTokenError {
@@ -26,7 +26,7 @@ pub enum AddApiTokenError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `delete_api_token`
+/// struct for typed errors of method [`delete_api_token`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteApiTokenError {
@@ -36,7 +36,7 @@ pub enum DeleteApiTokenError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `delete_user_by_id`
+/// struct for typed errors of method [`delete_user_by_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteUserByIdError {
@@ -46,7 +46,7 @@ pub enum DeleteUserByIdError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `get_user_by_id`
+/// struct for typed errors of method [`get_user_by_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetUserByIdError {
@@ -56,7 +56,7 @@ pub enum GetUserByIdError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `update_user_by_id`
+/// struct for typed errors of method [`update_user_by_id`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum UpdateUserByIdError {
@@ -68,16 +68,17 @@ pub enum UpdateUserByIdError {
 
 
 pub async fn add_api_token(configuration: &configuration::Configuration, user_id: &str, api_token: crate::models::ApiToken) -> Result<crate::models::ApiToken, Error<AddApiTokenError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/user/{userID}/token", configuration.base_path, userID=crate::apis::urlencode(user_id));
+    let local_var_uri_str = format!("{}/user/{userID}/token", local_var_configuration.base_path, userID=crate::apis::urlencode(user_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     local_var_req_builder = local_var_req_builder.json(&api_token);
@@ -98,16 +99,17 @@ pub async fn add_api_token(configuration: &configuration::Configuration, user_id
 }
 
 pub async fn delete_api_token(configuration: &configuration::Configuration, user_id: &str, token_name: &str) -> Result<(), Error<DeleteApiTokenError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/user/{userID}/token/{tokenName}", configuration.base_path, userID=crate::apis::urlencode(user_id), tokenName=crate::apis::urlencode(token_name));
+    let local_var_uri_str = format!("{}/user/{userID}/token/{tokenName}", local_var_configuration.base_path, userID=crate::apis::urlencode(user_id), tokenName=crate::apis::urlencode(token_name));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -128,16 +130,17 @@ pub async fn delete_api_token(configuration: &configuration::Configuration, user
 
 /// Deletes the user and all associated networks.  This is not reversible. Delete at your own risk.
 pub async fn delete_user_by_id(configuration: &configuration::Configuration, user_id: &str) -> Result<(), Error<DeleteUserByIdError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/user/{userID}", configuration.base_path, userID=crate::apis::urlencode(user_id));
+    let local_var_uri_str = format!("{}/user/{userID}", local_var_configuration.base_path, userID=crate::apis::urlencode(user_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::DELETE, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -157,16 +160,17 @@ pub async fn delete_user_by_id(configuration: &configuration::Configuration, use
 }
 
 pub async fn get_user_by_id(configuration: &configuration::Configuration, user_id: &str) -> Result<crate::models::User, Error<GetUserByIdError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/user/{userID}", configuration.base_path, userID=crate::apis::urlencode(user_id));
+    let local_var_uri_str = format!("{}/user/{userID}", local_var_configuration.base_path, userID=crate::apis::urlencode(user_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::GET, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
 
@@ -186,16 +190,17 @@ pub async fn get_user_by_id(configuration: &configuration::Configuration, user_i
 }
 
 pub async fn update_user_by_id(configuration: &configuration::Configuration, user_id: &str, user: crate::models::User) -> Result<crate::models::User, Error<UpdateUserByIdError>> {
+    let local_var_configuration = configuration;
 
-    let local_var_client = &configuration.client;
+    let local_var_client = &local_var_configuration.client;
 
-    let local_var_uri_str = format!("{}/user/{userID}", configuration.base_path, userID=crate::apis::urlencode(user_id));
+    let local_var_uri_str = format!("{}/user/{userID}", local_var_configuration.base_path, userID=crate::apis::urlencode(user_id));
     let mut local_var_req_builder = local_var_client.request(reqwest::Method::POST, local_var_uri_str.as_str());
 
-    if let Some(ref local_var_user_agent) = configuration.user_agent {
+    if let Some(ref local_var_user_agent) = local_var_configuration.user_agent {
         local_var_req_builder = local_var_req_builder.header(reqwest::header::USER_AGENT, local_var_user_agent.clone());
     }
-    if let Some(ref local_var_token) = configuration.bearer_access_token {
+    if let Some(ref local_var_token) = local_var_configuration.bearer_access_token {
         local_var_req_builder = local_var_req_builder.bearer_auth(local_var_token.to_owned());
     };
     local_var_req_builder = local_var_req_builder.json(&user);
