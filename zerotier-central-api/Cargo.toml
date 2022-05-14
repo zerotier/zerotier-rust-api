@@ -1,18 +1,21 @@
 [package]
 name = "zerotier-central-api"
-version = "1.0.3"
-edition = "2018"
-description = "OpenAPI bindings to the ZeroTier Central (https://my.zerotier.com) service"
+version = "1.1.0"
+edition = "2021"
+description = "ZeroTier Central API for Rust"
 authors = ["Erik Hollensbe <erik.hollensbe@zerotier.com>", "Adam Ierymenko <adam.ierymenko@zerotier.com>"]
 license = "BSD-3-Clause"
 
 [dependencies]
-serde = "^1.0"
-serde_derive = "^1.0"
-serde_json = "^1.0"
-url = "^2.2"
-[dependencies.reqwest]
-version = "^0.11"
-features = ["json", "multipart"]
+progenitor-client = ">=0"
+reqwest = { version = "0.11", features = ["json", "stream"] }
+serde = { version = "1.0", features = [ "derive" ] }
+chrono = { version = "0.4", features = [ "serde" ] }
+uuid = { version = "0.8", features = [ "serde", "v4" ] }
+futures = "0.3"
+serde_json = "1.0"
 
-[dev-dependencies]
+[build-dependencies]
+anyhow = ">=0"
+progenitor = ">=0"
+serde_json = "1.0"
