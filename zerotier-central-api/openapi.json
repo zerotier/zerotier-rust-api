@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: Bearer xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: bearer xxxxx\" https://my.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>",
+    "description": "ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: token xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: token xxxxx\" https://api.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>",
     "version": "v1",
     "title": "ZeroTier Central API",
     "contact": {
@@ -15,7 +15,7 @@
   },
   "servers": [
     {
-      "url": "https://my.zerotier.com/api/v1",
+      "url": "https://api.zerotier.com/api/v1",
       "description": "Production Server"
     }
   ],
@@ -936,9 +936,9 @@
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
+      "tokenAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "token"
       }
     },
     "responses": {
@@ -999,7 +999,8 @@
             "type": "integer",
             "example": 123,
             "readOnly": true,
-            "nullable": true
+            "nullable": true,
+            "description": "Note: May be 0 on endpoints returning lists of Networks"
           },
           "authorizedMemberCount": {
             "type": "integer",
@@ -1197,14 +1198,14 @@
             "type": "integer",
             "format": "int64",
             "readOnly": true,
-            "description": "Last seen time of the member",
+            "description": "Last seen time of the member.  Note: This data is considered ephemeral and may be reset to 0 at any time without warning.",
             "example": 1612993673254,
             "nullable": true
           },
           "physicalAddress": {
             "type": "string",
             "readOnly": true,
-            "description": "IP address the member last spoke to the controller via",
+            "description": "IP address the member last spoke to the controller via.  Note: This data is considered ephemeral and may be reset to 0 at any time without warning.",
             "example": "8.8.8.8",
             "nullable": true
           },
