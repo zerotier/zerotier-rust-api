@@ -1,13 +1,13 @@
 [package]
 name = "zerotier-one-api"
-version = "1.2.0"
+version = "1.2.1"
 edition = "2021"
 description = "OpenAPI bindings to the ZeroTierOne JSON API"
 authors = ["Erik Hollensbe <erik.hollensbe@zerotier.com>", "Adam Ierymenko <adam.ierymenko@zerotier.com>"]
 license = "BSD-3-Clause"
 
 [dependencies]
-progenitor-client = ">=0"
+progenitor-client = ">=0.2.0"
 reqwest = { version = "0.11", features = ["json", "stream"] }
 serde = { version = "1.0", features = [ "derive" ] }
 chrono = { version = "0.4", features = [ "serde" ] }
