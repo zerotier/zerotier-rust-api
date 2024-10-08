@@ -1,5 +1,5 @@
 central:
-	bash generate.sh central zerotier-central-api
+	curl -sSL https://docs.zerotier.com/openapi/centralv1.json > zerotier-central-api/openapi.json
 	cd zerotier-central-api && cargo build && cargo clean
 
 service:
