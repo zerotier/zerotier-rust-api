@@ -1,0 +1,1367 @@
+openapi: 3.0.0
+info:
+  title: ZeroTierOne Service
+  version: 1.1.1
+  description: |-
+    <p>This API controls the ZeroTier service that runs in the background on your computer. This is how zerotier-cli, and the macOS and Windows apps control the service. </p>
+    <p>API requests must be authenticated via an authentication token. ZeroTier One saves this token in the authtoken.secret file in its working directory. This token may be supplied via the X-ZT1-Auth HTTP request header. </p>
+    <p>For example: <code>curl -H "X-ZT1-Auth: $TOKEN" http://localhost:9993/status</code> </p>
+    <p>The token can be found in: <ul> <li>Mac :: ~/Library/Application Support/ZeroTier/authtoken.secret</li> <li>Windows :: \ProgramData\ZeroTier\One</li> <li>Linux :: /var/lib/zerotier-one</li> </ul> </p>
+    <p>Learn more about the spec at <a href="https://github.com/zerotier/zerotier-one-api-spec">github</a></p>
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+  - name: Node Status
+  - name: Joined Networks
+  - name: Peers
+  - name: Controller
+  - name: Unstable
+paths:
+  /controller:
+    get:
+      tags:
+        - Controller
+      operationId: controller_readControllerStatus
+      summary: Controller Status
+      description: Controller healthcheck
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerStatus'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+  /controller/network:
+    get:
+      tags:
+        - Controller
+      operationId: network_readNetworks
+      summary: List Network IDs
+      description: List IDs of all networks hosted by this controller
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworkIDList'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      tags:
+        - Controller
+      operationId: randomNetwork_randomNetwork
+      summary: Generate Random Network ID
+      description: Create a new network with a random ID.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        description: Node ID of the controller
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ControllerNetworkRequest'
+  /controller/network/{network_id}:
+    get:
+      tags:
+        - Controller
+      operationId: network_readNetwork
+      summary: Get Network by ID
+      description: Get details for a network by its ID.
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      tags:
+        - Controller
+      operationId: network_postNetwork
+      summary: Create or Update Network
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ControllerNetworkRequest'
+    delete:
+      tags:
+        - Controller
+      operationId: network_deleteNetwork
+      summary: Delete Network
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+  /controller/network/{network_id}/member:
+    get:
+      tags:
+        - Controller
+      operationId: networkMembers_listNetworkMembers
+      summary: 'List Network Member IDs '
+      description: Object containing all member IDs as keys and their memberRevisionCounter values as values
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          description: Network ID of the Network
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworkMemberList'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+  /controller/network/{network_id}/member/{node_id}:
+    get:
+      tags:
+        - Controller
+      operationId: networkMember_getNetworkMember
+      summary: Get Network Member by ID
+      parameters:
+        - name: node_id
+          in: path
+          required: true
+          description: Node ID of the Network Member
+          schema:
+            $ref: '#/components/schemas/ZTAddress'
+        - name: network_id
+          in: path
+          required: true
+          description: Network ID of the Network
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworkMember'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      tags:
+        - Controller
+      operationId: networkMember_postNetworkMember
+      summary: Create or Update Network Member
+      parameters:
+        - name: node_id
+          in: path
+          required: true
+          description: Node ID of the Network Member
+          schema:
+            $ref: '#/components/schemas/ZTAddress'
+        - name: network_id
+          in: path
+          required: true
+          description: Network ID of the Network
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworkMember'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ControllerNetworkMemberRequest'
+    delete:
+      tags:
+        - Controller
+      operationId: networkMember_delNetworkMember
+      summary: Delete Network Member
+      parameters:
+        - name: node_id
+          in: path
+          required: true
+          description: Node ID of the Network Member
+          schema:
+            $ref: '#/components/schemas/ZTAddress'
+        - name: network_id
+          in: path
+          required: true
+          description: Network ID of the Network
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworkMember'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+  /network:
+    get:
+      tags:
+        - Joined Networks
+      operationId: network_membership_readNetworks
+      summary: List Joined Networks
+      description: All the networks that this node is joined to
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JoinedNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+  /network/{network_id}:
+    get:
+      tags:
+        - Joined Networks
+      operationId: network_membership_getNetwork
+      summary: Get Joined Network by ID
+      description: Joined Network by ID
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JoinedNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      tags:
+        - Joined Networks
+      operationId: network_membership_setNetwork
+      summary: Join or Update Network Settings
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JoinedNetwork'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JoinedNetworkRequest'
+    delete:
+      tags:
+        - Joined Networks
+      operationId: network_membership_delNetwork
+      summary: Leave Network
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LeaveResult'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+  /peer:
+    get:
+      tags:
+        - Peers
+      operationId: node_peer_readNetworks
+      summary: List Peers
+      description: All the nodes your node knows about
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Peer'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+  /peer/{network_id}:
+    get:
+      tags:
+        - Peers
+      operationId: node_peer_getNetwork
+      summary: Get Joined Network by ID
+      description: Get Peer by ID
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Peer'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+  /status:
+    get:
+      tags:
+        - Node Status
+      operationId: node_status_readStatus
+      summary: Node Status
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NodeStatus'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+  /unstable/controller/network:
+    get:
+      tags:
+        - Unstable
+      operationId: network_readNetworks2
+      summary: List all networks
+      description: List all networks
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworks'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+  /unstable/controller/network/{network_id}/member:
+    get:
+      tags:
+        - Unstable
+      operationId: member_listNetworkMembers2
+      summary: List all Network Members
+      description: List all Network Members
+      parameters:
+        - name: network_id
+          in: path
+          required: true
+          description: Network ID of the Network
+          schema:
+            $ref: '#/components/schemas/ZTNetworkID'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ControllerNetworkMemberListFull'
+        '401':
+          description: Access is unauthorized.
+          content:
+            application/json:
+              schema:
+                type: object
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                type: object
+security:
+  - ApiKeyAuth: []
+components:
+  schemas:
+    ControllerNetwork:
+      type: object
+      required:
+        - name
+        - enableBroadcast
+        - mtu
+        - dns
+        - private
+        - ipAssignmentPools
+        - v4AssignMode
+        - v6AssignMode
+        - multicastLimit
+        - routes
+        - id
+        - nwid
+        - creationTime
+        - objtype
+        - revision
+        - capabilities
+        - rules
+        - tags
+      properties:
+        name:
+          type: string
+        enableBroadcast:
+          type: boolean
+        mtu:
+          $ref: '#/components/schemas/MTU'
+        dns:
+          anyOf:
+            - $ref: '#/components/schemas/NetworkDNS'
+            - $ref: '#/components/schemas/EmptyArrayItem'
+        private:
+          type: boolean
+        ipAssignmentPools:
+          type: array
+          items:
+            type: object
+            properties:
+              ipRangeStart:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+              ipRangeEnd:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+            required:
+              - ipRangeStart
+              - ipRangeEnd
+        v4AssignMode:
+          type: object
+          properties:
+            zt:
+              type: boolean
+        v6AssignMode:
+          type: object
+          properties:
+            6plane:
+              type: boolean
+            rfc4193:
+              type: boolean
+            zt:
+              type: boolean
+        multicastLimit:
+          $ref: '#/components/schemas/uSafeint'
+        routes:
+          type: array
+          items:
+            type: object
+            properties:
+              target:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+              via:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+                nullable: true
+            required:
+              - target
+        id:
+          $ref: '#/components/schemas/ZTNetworkID'
+        nwid:
+          $ref: '#/components/schemas/ZTNetworkID'
+        creationTime:
+          $ref: '#/components/schemas/uSafeint'
+        objtype:
+          type: string
+          enum:
+            - network
+        revision:
+          $ref: '#/components/schemas/uSafeint'
+        capabilities:
+          $ref: '#/components/schemas/NetworkCapsItem'
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/NetworkRule'
+        tags:
+          $ref: '#/components/schemas/NetworkTagsItem'
+    ControllerNetworkIDList:
+      type: array
+      items:
+        $ref: '#/components/schemas/ZTNetworkID'
+    ControllerNetworkMember:
+      type: object
+      required:
+        - id
+        - address
+        - authenticationExpiryTime
+        - capabilities
+        - creationTime
+        - lastAuthorizedCredential
+        - lastAuthorizedCredentialType
+        - lastAuthorizedTime
+        - lastDeauthorizedTime
+        - nwid
+        - objtype
+        - remoteTraceLevel
+        - remoteTraceTarget
+        - revision
+        - tags
+        - vMajor
+        - vMinor
+        - vProto
+        - vRev
+      properties:
+        id:
+          $ref: '#/components/schemas/ZTAddress'
+        authorized:
+          type: boolean
+        activeBridge:
+          type: boolean
+        ipAssignments:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/IPv4'
+              - $ref: '#/components/schemas/IPv6'
+        name:
+          type: string
+        noAutoAssignIps:
+          type: boolean
+        ssoExempt:
+          type: boolean
+        address:
+          $ref: '#/components/schemas/ZTAddress'
+        authenticationExpiryTime:
+          $ref: '#/components/schemas/uSafeint'
+        capabilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/uSafeint'
+        creationTime:
+          $ref: '#/components/schemas/uSafeint'
+        identity:
+          type: string
+        lastAuthorizedCredential:
+          type: string
+          nullable: true
+        lastAuthorizedCredentialType:
+          type: string
+        lastAuthorizedTime:
+          $ref: '#/components/schemas/uSafeint'
+        lastDeauthorizedTime:
+          $ref: '#/components/schemas/uSafeint'
+        nwid:
+          $ref: '#/components/schemas/ZTNetworkID'
+        objtype:
+          type: string
+          enum:
+            - member
+        remoteTraceLevel:
+          $ref: '#/components/schemas/uSafeint'
+        remoteTraceTarget:
+          type: string
+          nullable: true
+        revision:
+          $ref: '#/components/schemas/VersionDigit'
+        tags: {}
+        vMajor:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        vMinor:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        vProto:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        vRev:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+    ControllerNetworkMemberList:
+      type: object
+      additionalProperties:
+        type: integer
+        format: int32
+    ControllerNetworkMemberListFull:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ControllerNetworkMember'
+        meta:
+          type: object
+          properties:
+            totalCount:
+              $ref: '#/components/schemas/uSafeint'
+            authorizedCount:
+              $ref: '#/components/schemas/uSafeint'
+          required:
+            - totalCount
+            - authorizedCount
+    ControllerNetworkMemberRequest:
+      type: object
+      properties:
+        authorized:
+          type: boolean
+        activeBridge:
+          type: boolean
+        ipAssignments:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/IPv4'
+              - $ref: '#/components/schemas/IPv6'
+        name:
+          type: string
+        noAutoAssignIps:
+          type: boolean
+        ssoExempt:
+          type: boolean
+    ControllerNetworkRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        enableBroadcast:
+          type: boolean
+        mtu:
+          $ref: '#/components/schemas/MTU'
+        dns:
+          anyOf:
+            - $ref: '#/components/schemas/NetworkDNS'
+            - $ref: '#/components/schemas/EmptyArrayItem'
+        private:
+          type: boolean
+        ipAssignmentPools:
+          type: array
+          items:
+            type: object
+            properties:
+              ipRangeStart:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+              ipRangeEnd:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+            required:
+              - ipRangeStart
+              - ipRangeEnd
+        v4AssignMode:
+          type: object
+          properties:
+            zt:
+              type: boolean
+        v6AssignMode:
+          type: object
+          properties:
+            6plane:
+              type: boolean
+            rfc4193:
+              type: boolean
+            zt:
+              type: boolean
+        multicastLimit:
+          $ref: '#/components/schemas/uSafeint'
+        routes:
+          type: array
+          items:
+            type: object
+            properties:
+              target:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+              via:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+                nullable: true
+            required:
+              - target
+    ControllerNetworks:
+      type: object
+      required:
+        - data
+        - meta
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ControllerNetwork'
+        meta:
+          type: object
+          properties:
+            networkCount:
+              $ref: '#/components/schemas/uSafeint'
+          required:
+            - networkCount
+    ControllerStatus:
+      type: object
+      required:
+        - controller
+        - apiVersion
+        - clock
+        - databaseReady
+      properties:
+        controller:
+          type: boolean
+          enum:
+            - true
+        apiVersion:
+          $ref: '#/components/schemas/VersionDigit'
+        clock:
+          $ref: '#/components/schemas/uSafeint'
+        databaseReady:
+          type: boolean
+    EmptyArrayItem:
+      type: array
+      items: {}
+      minItems: 0
+      maxItems: 0
+    IPSlashPort:
+      type: string
+    IPv4:
+      type: string
+      format: ipv4
+    IPv6:
+      type: string
+      format: ipv6
+    JoinedNetwork:
+      type: object
+      required:
+        - allowDNS
+        - allowDefault
+        - allowManaged
+        - allowGlobal
+        - assignedAddresses
+        - bridge
+        - broadcastEnabled
+        - dns
+        - id
+        - mac
+        - mtu
+        - multicastSubscriptions
+        - name
+        - netconfRevision
+        - portDeviceName
+        - portError
+        - routes
+        - status
+        - type
+      properties:
+        allowDNS:
+          type: boolean
+        allowDefault:
+          type: boolean
+        allowManaged:
+          type: boolean
+        allowGlobal:
+          type: boolean
+        assignedAddresses:
+          type: array
+          items:
+            type: string
+        bridge:
+          type: boolean
+        broadcastEnabled:
+          type: boolean
+        dns:
+          anyOf:
+            - $ref: '#/components/schemas/NetworkDNS'
+            - $ref: '#/components/schemas/EmptyArrayItem'
+        id:
+          $ref: '#/components/schemas/ZTNetworkID'
+        mac:
+          type: string
+        mtu:
+          $ref: '#/components/schemas/MTU'
+        multicastSubscriptions:
+          type: array
+          items:
+            type: object
+            properties:
+              adi:
+                $ref: '#/components/schemas/uSafeint'
+              mac:
+                type: string
+            required:
+              - adi
+              - mac
+        authenticationURL:
+          type: string
+          format: uri
+        authenticationExpiryTime:
+          $ref: '#/components/schemas/uSafeint'
+        name:
+          type: string
+        netconfRevision:
+          type: integer
+          format: uint16
+        portDeviceName:
+          type: string
+        portError:
+          type: integer
+          format: int32
+        routes:
+          type: array
+          items:
+            type: object
+            properties:
+              flags:
+                type: integer
+                format: uint16
+              metric:
+                type: integer
+                format: uint16
+              target:
+                $ref: '#/components/schemas/IPSlashPort'
+              via:
+                anyOf:
+                  - $ref: '#/components/schemas/IPv4'
+                  - $ref: '#/components/schemas/IPv6'
+                nullable: true
+            required:
+              - flags
+              - metric
+              - target
+        status:
+          type: string
+          enum:
+            - REQUESTING_CONFIGURATION
+            - OK
+            - ACCESS_DENIED
+            - NOT_FOUND
+            - PORT_ERROR
+            - CLIENT_TOO_OLD
+            - AUTHENTICATION_REQUIRED
+        type:
+          type: string
+          enum:
+            - PUBLIC
+            - PRIVATE
+      allOf:
+        - type: object
+          additionalProperties: {}
+    JoinedNetworkRequest:
+      type: object
+      properties:
+        allowDNS:
+          type: boolean
+        allowDefault:
+          type: boolean
+        allowManaged:
+          type: boolean
+        allowGlobal:
+          type: boolean
+    LeaveResult:
+      type: object
+      required:
+        - result
+      properties:
+        result:
+          type: boolean
+          enum:
+            - true
+    MTU:
+      type: integer
+      format: uint32
+      minimum: 1280
+    NetworkCap:
+      type: array
+      items:
+        type: integer
+      minItems: 2
+      maxItems: 2
+    NetworkCapsItem:
+      type: array
+      items:
+        $ref: '#/components/schemas/NetworkCap'
+    NetworkDNS:
+      type: object
+      required:
+        - domain
+        - servers
+      properties:
+        domain:
+          anyOf:
+            - $ref: '#/components/schemas/domain'
+            - type: string
+              enum:
+                - ''
+        servers:
+          type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/IPv4'
+              - $ref: '#/components/schemas/IPv6'
+    NetworkRule:
+      type: object
+      required:
+        - type
+      properties:
+        not:
+          type: boolean
+        or:
+          type: boolean
+        type:
+          type: string
+      allOf:
+        - type: object
+          additionalProperties: {}
+    NetworkTag:
+      type: array
+      items:
+        type: integer
+      minItems: 2
+      maxItems: 2
+    NetworkTagsItem:
+      type: array
+      items:
+        $ref: '#/components/schemas/NetworkTag'
+    NodeStatus:
+      type: object
+      required:
+        - address
+        - clock
+        - config
+        - online
+        - planetWorldId
+        - planetWorldTimestamp
+        - publicIdentity
+        - tcpFallbackActive
+        - version
+        - versionBuild
+        - versionMajor
+        - versionMinor
+        - versionRev
+      properties:
+        address:
+          $ref: '#/components/schemas/ZTAddress'
+        clock:
+          $ref: '#/components/schemas/uSafeint'
+        config:
+          type: object
+          properties:
+            settings:
+              type: object
+              properties:
+                allowManagementFrom:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/IPSlashPort'
+                allowTcpFallbackRelay:
+                  type: boolean
+                forceTcpRelay:
+                  type: boolean
+                listeningOn:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/IPSlashPort'
+                portMappingEnabled:
+                  type: boolean
+                primaryPort:
+                  $ref: '#/components/schemas/Port'
+                secondaryPort:
+                  $ref: '#/components/schemas/Port'
+                softwareUpdate:
+                  type: string
+                softwareUpdateChannel:
+                  type: string
+                surfaceAddresses:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/IPSlashPort'
+                tertiaryPort:
+                  $ref: '#/components/schemas/Port'
+              required:
+                - allowTcpFallbackRelay
+                - forceTcpRelay
+                - listeningOn
+                - portMappingEnabled
+                - primaryPort
+                - secondaryPort
+                - softwareUpdate
+                - softwareUpdateChannel
+                - surfaceAddresses
+                - tertiaryPort
+          required:
+            - settings
+        online:
+          type: boolean
+        planetWorldId:
+          $ref: '#/components/schemas/uSafeint'
+        planetWorldTimestamp:
+          $ref: '#/components/schemas/uSafeint'
+        publicIdentity:
+          type: string
+        tcpFallbackActive:
+          type: boolean
+        version:
+          type: string
+        versionBuild:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        versionMajor:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        versionMinor:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        versionRev:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+    Peer:
+      type: object
+      required:
+        - address
+        - isBonded
+        - latency
+        - paths
+        - role
+        - version
+        - versionMajor
+        - versionMinor
+        - versionRev
+        - tunneled
+      properties:
+        address:
+          $ref: '#/components/schemas/ZTAddress'
+        isBonded:
+          type: boolean
+        latency:
+          anyOf:
+            - $ref: '#/components/schemas/uSafeint'
+            - type: number
+              enum:
+                - -1
+        paths:
+          type: array
+          items:
+            type: object
+            properties:
+              active:
+                type: boolean
+              address:
+                $ref: '#/components/schemas/IPSlashPort'
+              expired:
+                type: boolean
+              lastReceive:
+                $ref: '#/components/schemas/uSafeint'
+              lastSend:
+                $ref: '#/components/schemas/uSafeint'
+              localSocket:
+                $ref: '#/components/schemas/uSafeint'
+              preferred:
+                type: boolean
+              trustedPathId:
+                $ref: '#/components/schemas/uSafeint'
+            required:
+              - active
+              - address
+              - expired
+              - lastReceive
+              - lastSend
+              - localSocket
+              - preferred
+              - trustedPathId
+        role:
+          type: string
+          enum:
+            - LEAF
+            - PLANET
+            - MOON
+        version:
+          type: string
+        versionMajor:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        versionMinor:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        versionRev:
+          anyOf:
+            - $ref: '#/components/schemas/VersionDigit'
+            - type: number
+              enum:
+                - -1
+        tunneled:
+          type: boolean
+    Port:
+      type: integer
+      format: uint16
+      minimum: 0
+    VersionDigit:
+      type: integer
+      format: uint8
+      minimum: 0
+    ZTAddress:
+      type: string
+      pattern: '[a-f0-9]{10}'
+    ZTNetworkID:
+      type: string
+      pattern: '[a-f0-9]{16}'
+    domain:
+      type: string
+      format: hostname
+    uSafeint:
+      type: integer
+      format: int64
+      minimum: 0
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-ZT1-AUTH
+servers:
+  - url: ' http://localhost:9993'
+    description: Service API
+    variables: {}
