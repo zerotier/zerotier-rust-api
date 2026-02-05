@@ -1,5 +1,5 @@
 central:
-	curl -sSL https://docs.zerotier.com/openapi/centralv1.json > zerotier-central-api/openapi.json
+	curl -sSL https://docs.zerotier.com/redocusaurus/plugin-redoc-0.yaml > zerotier-central-api/openapi.yaml
 	cd zerotier-central-api && cargo build && cargo clean
 
 service:

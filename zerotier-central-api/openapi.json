@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: token xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: token xxxxx\" https://api.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/api/central/ref-v1.json</code></p>",
+    "description": "ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: token xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: token xxxxx\" https://api.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>",
     "version": "v1",
     "title": "ZeroTier Central API",
     "contact": {
@@ -44,7 +44,9 @@
   "paths": {
     "/status": {
       "get": {
-        "tags": ["util"],
+        "tags": [
+          "util"
+        ],
         "summary": "Obtain the overall status of the account tied to the API token in use.",
         "operationId": "getStatus",
         "responses": {
@@ -63,7 +65,9 @@
     },
     "/network": {
       "get": {
-        "tags": ["network"],
+        "tags": [
+          "network"
+        ],
         "summary": "Returns a list of Networks you have access to.",
         "operationId": "getNetworkList",
         "responses": {
@@ -86,7 +90,9 @@
         }
       },
       "post": {
-        "tags": ["network"],
+        "tags": [
+          "network"
+        ],
         "summary": "Create a new network.",
         "operationId": "newNetwork",
         "requestBody": {
@@ -119,7 +125,9 @@
     },
     "/network/{networkID}": {
       "get": {
-        "tags": ["network"],
+        "tags": [
+          "network"
+        ],
         "summary": "Get network by ID",
         "description": "Returns a single network",
         "operationId": "getNetworkByID",
@@ -157,7 +165,9 @@
         }
       },
       "post": {
-        "tags": ["network"],
+        "tags": [
+          "network"
+        ],
         "summary": "update network configuration",
         "operationId": "updateNetwork",
         "parameters": [
@@ -205,7 +215,9 @@
         }
       },
       "delete": {
-        "tags": ["network"],
+        "tags": [
+          "network"
+        ],
         "summary": "delete network",
         "operationId": "deleteNetwork",
         "parameters": [
@@ -237,7 +249,9 @@
     },
     "/network/{networkID}/member": {
       "get": {
-        "tags": ["network-member"],
+        "tags": [
+          "network-member"
+        ],
         "summary": "Returns a list of Members on the network.",
         "operationId": "getNetworkMemberList",
         "parameters": [
@@ -279,7 +293,9 @@
     },
     "/network/{networkID}/member/{memberID}": {
       "get": {
-        "tags": ["network-member"],
+        "tags": [
+          "network-member"
+        ],
         "operationId": "getNetworkMember",
         "summary": "Return an individual member on a network",
         "parameters": [
@@ -325,7 +341,9 @@
         }
       },
       "post": {
-        "tags": ["network-member"],
+        "tags": [
+          "network-member"
+        ],
         "operationId": "updateNetworkMember",
         "summary": "Modify a network member",
         "parameters": [
@@ -382,7 +400,9 @@
         }
       },
       "delete": {
-        "tags": ["network-member"],
+        "tags": [
+          "network-member"
+        ],
         "operationId": "deleteNetworkMember",
         "summary": "Delete a network member",
         "parameters": [
@@ -423,7 +443,9 @@
     },
     "/user/{userID}": {
       "get": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "operationId": "getUserByID",
         "summary": "Get user record",
         "parameters": [
@@ -460,7 +482,9 @@
         }
       },
       "post": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "operationId": "updateUserByID",
         "summary": "Update user record (SMS number or Display Name only)",
         "parameters": [
@@ -508,7 +532,9 @@
         }
       },
       "delete": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "operationId": "deleteUserByID",
         "summary": "Delete user",
         "description": "Deletes the user and all associated networks.  This is not reversible. Delete at your own risk.",
@@ -541,7 +567,9 @@
     },
     "/user/{userID}/token": {
       "post": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "operationId": "addAPIToken",
         "summary": "Add an API token",
         "parameters": [
@@ -594,7 +622,9 @@
     },
     "/user/{userID}/token/{tokenName}": {
       "delete": {
-        "tags": ["user"],
+        "tags": [
+          "user"
+        ],
         "operationId": "deleteAPIToken",
         "summary": "Delete API Token",
         "parameters": [
@@ -635,7 +665,9 @@
     },
     "/org": {
       "get": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "getOrganization",
         "summary": "Get the current user's organization",
         "responses": {
@@ -663,7 +695,9 @@
     },
     "/org/{orgID}": {
       "get": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "getOrganizationByID",
         "summary": "Get organization by ID",
         "parameters": [
@@ -702,7 +736,9 @@
     },
     "/org/{orgID}/user": {
       "get": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "getOrganizationMembers",
         "summary": "Get list of organization members",
         "parameters": [
@@ -741,7 +777,9 @@
     },
     "/org-invitation": {
       "get": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "getOrganizationInvitationList",
         "summary": "Get list of organization invitations",
         "responses": {
@@ -770,7 +808,9 @@
         }
       },
       "post": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "inviteUserByEmail",
         "summary": "Invite a user to your organization by email",
         "requestBody": {
@@ -809,7 +849,9 @@
     },
     "/org-invitation/{inviteID}": {
       "get": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "getInvitationByID",
         "summary": "Get organization invitation",
         "parameters": [
@@ -846,7 +888,9 @@
         }
       },
       "post": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "acceptInvitation",
         "summary": "Accept organization invitation",
         "parameters": [
@@ -883,7 +927,9 @@
         }
       },
       "delete": {
-        "tags": ["organizations"],
+        "tags": [
+          "organizations"
+        ],
         "operationId": "declineInvitation",
         "summary": "Decline organization invitation",
         "parameters": [
@@ -915,7 +961,9 @@
     },
     "/randomToken": {
       "get": {
-        "tags": ["util"],
+        "tags": [
+          "util"
+        ],
         "operationId": "getRandomToken",
         "summary": "Get a random 32 character token",
         "description": "Get a random 32 character.  Used by the web UI to generate API keys",
@@ -1346,7 +1394,9 @@
             "items": {
               "type": "string"
             },
-            "example": ["10.0.0.3"],
+            "example": [
+              "10.0.0.3"
+            ],
             "nullable": true
           },
           "lastAuthorizedTime": {
@@ -1391,13 +1441,25 @@
             "items": {
               "type": "array",
               "items": {
-                "anyOf": [{ "type": "integer" }, { "type": "boolean" }]
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
               }
             },
             "nullable": true,
             "readOnly": false,
             "description": "Array of 2 member tuples of tag [ID, tag value]",
-            "example": [[123, 456]]
+            "example": [
+              [
+                123,
+                456
+              ]
+            ]
           },
           "vMajor": {
             "type": "integer",
@@ -1485,7 +1547,9 @@
             "items": {
               "type": "string"
             },
-            "example": ["my-token-id"],
+            "example": [
+              "my-token-id"
+            ],
             "description": "List of API token names."
           }
         }
@@ -1714,7 +1778,9 @@
             "items": {
               "type": "string"
             },
-            "example": ["10.0.0.3"],
+            "example": [
+              "10.0.0.3"
+            ],
             "description": "IP address of unicast DNS service",
             "nullable": true
           }
@@ -1809,7 +1875,11 @@
       },
       "InviteStatus": {
         "type": "string",
-        "enum": ["pending", "accepted", "canceled"]
+        "enum": [
+          "pending",
+          "accepted",
+          "canceled"
+        ]
       },
       "Status": {
         "type": "object",
