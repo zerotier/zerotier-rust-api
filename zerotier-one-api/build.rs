@@ -1,9 +1,9 @@
 fn main() {
-    let src = "openapi.yaml";
+    let src = "openapi.json";
     println!("cargo:rerun-if-changed={}", src);
     let file = std::fs::File::open(src).unwrap();
     println!("file:{:?}", file);
-    let spec = serde_yaml::from_reader(file).unwrap();
+    let spec = serde_json::from_reader(file).unwrap();
     let mut generator = progenitor::Generator::default();
 
     let tokens = generator.generate_tokens(&spec).unwrap();
