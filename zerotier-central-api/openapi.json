@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "description": "ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: token xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: token xxxxx\" https://api.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/centralv1.json</code></p>",
+    "description": "ZeroTier Central Network Management Portal API.<p>All API requests must have an API token header specified in the <code>Authorization: token xxxxx</code> format.  You can generate your API key by logging into <a href=\"https://my.zerotier.com\">ZeroTier Central</a> and creating a token on the Account page.</p><p>eg. <code>curl -X GET -H \"Authorization: token xxxxx\" https://api.zerotier.com/api/v1/network</code></p><p><h3>Rate Limiting</h3></p><p>The ZeroTier Central API implements rate limiting.  Paid users are limited to 100 requests per second.  Free users are limited to 20 requests per second.</p> <p> You can get the OpenAPI spec here as well: <code>https://docs.zerotier.com/openapi/central/v1.json</code></p>",
     "version": "v1",
-    "title": "ZeroTier Central API",
+    "title": "ZeroTier Legacy Central API",
     "contact": {
       "name": "ZeroTier Support Discussion Forum",
       "url": "https://discuss.zerotier.com"
@@ -408,6 +408,57 @@
         "responses": {
           "200": {
             "description": "member deleted"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/AccessDeniedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          }
+        }
+      }
+    },
+    "/network/{networkID}/users": {
+      "post": {
+        "tags": ["network"],
+        "operationId": "setNetworkUserPermissions",
+        "summary": "Set user permissions on a network",
+        "description": "Assign or update permissions for a specific user on a network. Use this endpoint to grant read, authorize, modify, or delete permissions.",
+        "parameters": [
+          {
+            "name": "networkID",
+            "description": "ID of the network",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "User permissions object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NetworkUserPermissions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Permissions updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworkUserPermissions"
+                }
+              }
+            }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
@@ -984,11 +1035,14 @@
           "rulesSource": {
             "type": "string",
             "example": "accept;",
-            "nullable": true
+            "nullable": true,
+            "description": "The flow rules source code in ZeroTier rule language. Set this field to update network rules."
           },
           "permissions": {
             "$ref": "#/components/schemas/PermissionsMap",
-            "nullable": true
+            "nullable": true,
+            "readOnly": true,
+            "description": "User permissions map. Read-only on this endpoint. Use POST /network/{networkID}/users to modify user permissions."
           },
           "ownerId": {
             "type": "string",
@@ -1686,6 +1740,45 @@
             "example": true,
             "description": "Read network settings permission"
           }
+        }
+      },
+      "NetworkUserPermissions": {
+        "type": "object",
+        "description": "User permissions for a specific network",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The user ID to set permissions for",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "r": {
+            "type": "boolean",
+            "description": "Read permission - allows viewing network settings",
+            "default": false
+          },
+          "a": {
+            "type": "boolean",
+            "description": "Authorize permission - allows authorizing new members",
+            "default": false
+          },
+          "m": {
+            "type": "boolean",
+            "description": "Modify permission - allows changing network settings",
+            "default": false
+          },
+          "d": {
+            "type": "boolean",
+            "description": "Delete permission - allows removing members",
+            "default": false
+          }
+        },
+        "example": {
+          "id": "00000000-0000-0000-0000-000000000000",
+          "r": true,
+          "a": true,
+          "m": false,
+          "d": false
         }
       },
       "IPRange": {
